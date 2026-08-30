@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Signature-level security permission for client companion apps -->
+    <permission
+        android:name="com.dissonance.webdav.permission.ACCESS_SYNC_HUB"
+        android:protectionLevel="signature"
+        android:label="Access WebDAV Sync Hub"
+        android:description="@string/permission_sync_hub_desc" />
+
+    <uses-permission android:name="com.dissonance.webdav.permission.ACCESS_SYNC_HUB" />
+
+    <application
+        android:name=".WebDavSyncApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.MyApplication">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Storage Access Framework DocumentsProvider -->
+        <provider
+            android:name="com.dissonance.webdav.provider.SyncDocumentsProvider"
+            android:authorities="com.dissonance.webdav.provider.documents"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
+        <!-- Signature-secured Custom IPC ContentProvider for client apps -->
+        <provider
+            android:name="com.dissonance.webdav.provider.SyncHubProvider"
+            android:authorities="com.dissonance.webdav.provider.synchub"
+            android:permission="com.dissonance.webdav.permission.ACCESS_SYNC_HUB"
+            android:exported="true" />
+
+    </application>
+
+</manifest>

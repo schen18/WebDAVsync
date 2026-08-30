@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WebDAV Sync</string>
+    <string name="permission_sync_hub_desc">Allows trusted companion client apps to read, write, and sync cached files through the WebDAV Hub Provider.</string>
+    <string name="documents_provider_root_title">WebDAV Sync Vault</string>
+</resources>
